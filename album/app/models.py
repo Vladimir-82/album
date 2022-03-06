@@ -10,21 +10,18 @@ class App(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
+
         im = Image.open(self.photo)
-        im.show()
-        print(im, '$$$$')
         width, height = im.size
         if width > height:
             new_width = 150
-            new_height = int(new_width * height / width)
+            new_height = new_width * height // width
         else:
             new_height = 150
-            new_width = int(new_height * width / height)
+            new_width = new_height * width // height
         res = im.resize((new_width, new_height), Image.ANTIALIAS)
-        print(res, '******')
-        App.photo_webp = res
-        print(App.photo_webp, '!!!!')
-        super().save(*args, **kwargs)
+        self.photo_webp = res
+        self.save()
         
 
 
