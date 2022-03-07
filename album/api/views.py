@@ -1,5 +1,5 @@
 from rest_framework import generics
-# from app.permissions import IsAuthorOrReadOnly
+from app.permissions import IsAuthorOrReadOnly
 from app.models import App
 from .serializers import *
 
@@ -17,6 +17,6 @@ class AppAPIPost(generics.ListCreateAPIView):
 
 
 class AppAPIDetail(generics.RetrieveUpdateDestroyAPIView):
-    # permission_classes = (IsAuthorOrReadOnly,)
+    permission_classes = (IsAuthorOrReadOnly,)
     queryset = App.objects.all()
     serializer_class = AppPostDetailSerializer
