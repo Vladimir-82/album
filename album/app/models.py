@@ -6,6 +6,7 @@ from django.core.files.base import ContentFile
 
 
 class App(models.Model):
+    author = models.CharField(max_length=150)
     title = models.CharField(max_length=150)
     photo = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
     photo_webp = models.ImageField(upload_to='photos_webp/%Y/%m/%d/', blank=True, null=None)
