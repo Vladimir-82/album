@@ -6,4 +6,5 @@ urlpatterns = [
     path('v1/post/', AppAPIPost.as_view()),
     path('v1/<int:pk>/', AppAPIDetail.as_view()),
     path('v1/top10/', AppAPIViewTop10.as_view()),
+    path('v1/search/', AppAPIViewSearch.as_view()),
 ]

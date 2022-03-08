@@ -1,7 +1,6 @@
 from django.http import HttpResponse
-from rest_framework import generics
+from rest_framework import generics, filters
 from app.permissions import IsAuthorOrReadOnly
-from app.models import App
 from .serializers import *
 
 
@@ -39,3 +38,10 @@ class AppAPIDetail(generics.RetrieveUpdateDestroyAPIView):
 class AppAPIViewTop10(generics.ListAPIView):
     queryset = App.objects.order_by('-views')[:10]
     serializer_class = AppGetSerializer
+
+
+class AppAPIViewSearch(generics.ListAPIView):
+    queryset = App.objects.all()
+    serializer_class = AppGetSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title', 'author',]
