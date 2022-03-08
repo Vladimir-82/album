@@ -12,5 +12,3 @@ class AppPostDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = App
         fields = ('author', 'title', 'photo', 'created_at')
-
-
