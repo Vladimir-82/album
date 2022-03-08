@@ -1,3 +1,5 @@
+from PIL import Image
+
 from rest_framework import generics
 from app.permissions import IsAuthorOrReadOnly
 from app.models import App
@@ -17,6 +19,21 @@ class AppAPIPost(generics.ListCreateAPIView):
 
 
 class AppAPIDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthorOrReadOnly,)
+    # permission_classes = (IsAuthorOrReadOnly,)
     queryset = App.objects.all()
     serializer_class = AppPostDetailSerializer
+
+
+class AppAPIViewTop10(generics.ListAPIView):
+
+    queryset = App.objects.order_by('-views')[:10]
+    serializer_class = AppGetSerializer
+
+
+
+
+
+
+
+
+
