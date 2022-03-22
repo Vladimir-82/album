@@ -8,7 +8,7 @@ from django.db import models
 class App(models.Model):
     author = models.CharField(max_length=150)
     title = models.CharField(max_length=150)
-    photo = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
+    photo = models.ImageField(upload_to='photos/%Y/%m/%d/')
     photo_webp = models.ImageField(upload_to='photos_webp/%Y/%m/%d/', blank=True, null=None)
     created_at = models.DateTimeField(auto_now_add=True)
     views = models.IntegerField(default=0)
