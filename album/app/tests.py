@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from .models import App
-
+from django.test import SimpleTestCase
 
 
 class CustomUserTests(TestCase):
@@ -33,3 +33,15 @@ class CustomUserTests(TestCase):
         self.assertTrue(admin_user.is_active)
         self.assertTrue(admin_user.is_staff)
         self.assertTrue(admin_user.is_superuser)
+
+
+
+# class SimpleTests(SimpleTestCase):
+#
+#     def test_home_page_status_code(self):
+#         response = self.client.get('/api/v1/')
+#         self.assertEqual(response.status_code, 200)
+
+    # def test_about_page_status_code(self):
+    #     response = self.client.get('/v1/post/')
+    #     self.assertEqual(response.status_code, 200)
