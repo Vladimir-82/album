@@ -1,6 +1,5 @@
 from django.http import HttpResponse
 from rest_framework import generics, filters
-from app.permissions import IsAuthorOrReadOnly
 from .serializers import *
 
 
@@ -24,7 +23,6 @@ class AppAPIPost(generics.ListCreateAPIView):
 
 
 class AppAPIDetail(generics.RetrieveUpdateDestroyAPIView):
-    # permission_classes = [IsAuthorOrReadOnly]
     queryset = App.objects.all()
     serializer_class = AppPostDetailSerializer
 
