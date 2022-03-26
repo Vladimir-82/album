@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from rest_framework import generics, filters
 from .serializers import *
+from rest_framework import permissions
 
 
 class AppAPIView(generics.ListAPIView):
@@ -9,6 +10,7 @@ class AppAPIView(generics.ListAPIView):
 
 
 class AppAPIPost(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = App.objects.all()
     serializer_class = AppPostDetailSerializer
 
@@ -23,6 +25,7 @@ class AppAPIPost(generics.ListCreateAPIView):
 
 
 class AppAPIDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = App.objects.all()
     serializer_class = AppPostDetailSerializer
 
