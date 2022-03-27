@@ -1,15 +1,18 @@
-from __future__ import absolute_import
 import os
-import celery
-
+from celery import Celery
+from celery.schedules import crontab
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'album.settings')
 
-app = celery.Celery("album")
-app.config_from_object('django.conf:settings', namespace='CELERY')
+app = Celery('album')
+app.config_from_object('django.conf:settings')
+
+
 app.autodiscover_tasks()
 
-
-@app.task
-def add(x, y):
-    return x / y
+app.conf.beat_schedule = {
+    'send-report-every-single-minute': {
+        'task': 'publisher.tasks.send_view_count_report',
+        'schedule': crontab(minute=1),
+    },
+}

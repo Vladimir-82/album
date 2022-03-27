@@ -4,6 +4,7 @@ from .serializers import *
 from rest_framework import permissions
 
 
+
 class AppAPIView(generics.ListAPIView):
     queryset = App.objects.all()
     serializer_class = AppGetSerializer
@@ -39,6 +40,13 @@ class AppAPIDetail(generics.RetrieveUpdateDestroyAPIView):
 class AppAPIViewTop10(generics.ListAPIView):
     queryset = App.objects.order_by('-views')[:10]
     serializer_class = AppGetSerializer
+
+
+class AppAPIViewTop3(generics.ListAPIView):
+    queryset = App.objects.order_by('-views')[:3]
+    serializer_class = AppGetSerializer
+
+
 
 
 class AppAPIViewSearch(generics.ListAPIView):
