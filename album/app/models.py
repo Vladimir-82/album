@@ -3,10 +3,11 @@ from PIL import Image
 
 from django.core.files.base import ContentFile
 from django.db import models
+from django.contrib.auth import get_user_model
 
 
 class App(models.Model):
-    author = models.CharField(max_length=150)
+    author = models.ForeignKey(get_user_model(), on_delete=models.PROTECT, null=True)
     title = models.CharField(max_length=150)
     photo = models.ImageField(upload_to='photos/%Y/%m/%d/')
     photo_webp = models.ImageField(upload_to='photos_webp/%Y/%m/%d/', blank=True, null=None)

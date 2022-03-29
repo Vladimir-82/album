@@ -9,9 +9,9 @@ def send_view_count_report():
     for user in get_user_model().objects.all():
         post = App.objects.order_by('-views')[:3].filter(author=user)
         send_mail(
+            post.title,
             'You take an abrakadabra',
             'from@top3.dev',
-            [post.photo],
             [user.email],
             fail_silently=False,
         )
