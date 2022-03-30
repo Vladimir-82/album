@@ -3,9 +3,9 @@ from django.shortcuts import render
 from .models import App
 
 
-def view_post(request, slug):
+def view_post(request, post_id):
     try:
-        post = App.objects.get(slug=slug)
+        post = App.objects.get(pk=post_id)
     except App.DoesNotExist:
         raise Http404("Poll does not exist")
 
