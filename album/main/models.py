@@ -3,8 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 
 import uuid
 from django.db.models import signals
-from django.core.mail import send_mail
-from django.urls import reverse
+from .tasks import send_verification_email
 
 
 class UserAccountManager(BaseUserManager):
@@ -59,13 +58,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 def user_post_save(sender, instance, signal, *args, **kwargs):
     if not instance.is_verified:
-        send_mail(
-            'Verify your QuickPublisher account',
-            'Follow this link to verify your account: '
-            'http://localhost:8000%s' % reverse('verify', kwargs={'uuid': str(instance.verification_uuid)}),
-            'from@quickpublisher.dev',
-            [instance.email],
-            fail_silently=False,
-        )
+        send_verification_email.delay(instance.pk)
 
 signals.post_save.connect(user_post_save, sender=User)
