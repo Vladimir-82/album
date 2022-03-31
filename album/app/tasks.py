@@ -17,14 +17,14 @@ Here's how you did till now:
 @app.task
 def send_view_count_report():
     for user in get_user_model().objects.all():
-        posts = App.objects.order_by('-views')
+        posts = App.objects.order_by('-views')[:3].filter(author=user)
         if not posts:
             continue
 
         template = Template(REPORT_TEMPLATE)
 
         send_mail(
-            'Your QuickPublisher Activity',
+            'Your won blablabla',
             template.render(context=Context({'posts': posts})),
             'from@top3.dev',
             [user.email],
