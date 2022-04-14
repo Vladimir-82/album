@@ -1,5 +1,9 @@
 from django.http import HttpResponse
 from rest_framework import generics, filters
+from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny
+from rest_framework import status
+from rest_framework.response import Response
 from .serializers import *
 from rest_framework import permissions
 
@@ -54,3 +58,24 @@ class AppAPIViewSearch(generics.ListAPIView):
     serializer_class = AppGetSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['title', 'author',]
+
+
+
+# jwt
+class RegistrationAPIView(APIView):
+    """
+    Разрешить всем пользователям (аутентифицированным и нет) доступ к данному эндпоинту.
+    """
+    permission_classes = (AllowAny,)
+    serializer_class = RegistrationSerializer
+
+    def post(self, request):
+        user = request.data.get('user', {})
+
+        # Паттерн создания сериализатора, валидации и сохранения - довольно
+        # стандартный, и его можно часто увидеть в реальных проектах.
+        serializer = self.serializer_class(data=user)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
