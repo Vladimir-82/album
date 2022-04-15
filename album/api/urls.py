@@ -10,4 +10,5 @@ urlpatterns = [
     path('v1/top10/', AppAPIViewTop10.as_view()),
     path('v1/top3/', AppAPIViewTop3.as_view()),
     path('v1/search/', AppAPIViewSearch.as_view()),
+    path('v1/users/', RegistrationAPIView.as_view()), # jwt
 ]
